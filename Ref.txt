@@ -1,0 +1,5 @@
+$ ionic g s services/news --skip-tests
+$ ionic g m components
+
+$ ionic g c components/articles --spec=false
+
