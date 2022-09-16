@@ -5,8 +5,7 @@ import {
   Article,
   ArticlesByCategoryAndPage,
   NewsResponse,
-} from '../interfaces';
-import { Observable } from 'rxjs';
+} from '../interfaces';import { Observable, of } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 const apiKey = environment.apiKey;
@@ -21,18 +20,20 @@ export class NewsService {
   constructor(private http: HttpClient) {}
 
   getTopHeadlines(): Observable<Article[]> {
-    return this.executeQuery<NewsResponse>(`&category=business`).pipe(
-      map(({ articles }) => articles)
-    );
+    return this.getArticlesByCategory('business');
   }
 
   getTopHeadlinesByCategory(
     category: string,
     loadMore: boolean = false
   ): Observable<Article[]> {
-    return this.executeQuery<NewsResponse>(`&category=${category}`).pipe(
-      map(({ articles }) => articles)
-    );
+    if (loadMore) {
+      return this.getArticlesByCategory(category);
+    }
+    if (this.articlesByCategoryAndPage[category]) {
+      return of(this.articlesByCategoryAndPage[category].articles);
+    }
+    return this.getArticlesByCategory(category);
   }
 
   private executeQuery<T>(endpoint: string) {
@@ -40,6 +41,7 @@ export class NewsService {
     return this.http.get<T>(`${apiUrl}${endpoint}`, {
       params: { apiKey },
     });
+    // This method go to the API and get the data
   }
 
   private getArticlesByCategory(category: string): Observable<Article[]> {
@@ -56,7 +58,7 @@ export class NewsService {
     ).pipe(
       map(({ articles }) => {
         if (articles.length < 1) {
-          return [];
+          return this.articlesByCategoryAndPage[category].articles; // return your old data
         }
 
         this.articlesByCategoryAndPage[category] = {
@@ -66,8 +68,9 @@ export class NewsService {
             ...articles,
           ],
         };
-        return articles;
+        return this.articlesByCategoryAndPage[category].articles; // return your new data updarted
       })
     );
+    // Return the article whit old data and the new data
   }
 }
