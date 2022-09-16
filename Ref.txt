@@ -3,3 +3,8 @@ $ ionic g m components
 
 $ ionic g c components/articles --spec=false
 
+https://ionicframework.com/docs/native/in-app-browser#installation
+Open browsers in the app
+$ npm install cordova-plugin-inappbrowser
+$ npm install @awesome-cordova-plugins/in-app-browser
+$ ionic cap sync
