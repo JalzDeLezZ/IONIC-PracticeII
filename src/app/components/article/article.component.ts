@@ -7,6 +7,7 @@ import {
   Platform,
 } from '@ionic/angular';
 import { SocialSharing } from '@awesome-cordova-plugins/social-sharing/ngx';
+import { StorageService } from '../../services/storage.service';
 
 @Component({
   selector: 'app-article',
@@ -21,7 +22,8 @@ export class ArticleComponent {
     private iab: InAppBrowser,
     private actionSheetCtrl: ActionSheetController,
     private platform: Platform,
-    private socialSharing: SocialSharing
+    private socialSharing: SocialSharing,
+    private storageService: StorageService
   ) {}
 
   openArticle() {
@@ -76,6 +78,6 @@ export class ArticleComponent {
     this.socialSharing.share(title, source.name, null, url);
   }
   onToogleFavorite() {
-    console.log('Favorito');
+    this.storageService.saveRemoveArticle(this.article);
   }
 }

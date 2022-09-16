@@ -21,3 +21,13 @@ https://ionicframework.com/docs/native/social-sharing
 $ npm install cordova-plugin-x-socialsharing
 $ npm install @awesome-cordova-plugins/social-sharing
 $ ionic cap sync
+
+
+======================================================
+Local Storage
+https://github.com/ionic-team/ionic-storage
+npm install @ionic/storage
+npm install @ionic/storage-angular
+
+
+$ ionic g s services/storageService --skip-tests
