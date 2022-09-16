@@ -3,8 +3,21 @@ $ ionic g m components
 
 $ ionic g c components/articles --spec=false
 
+In App Browser
 https://ionicframework.com/docs/native/in-app-browser#installation
 Open browsers in the app
 $ npm install cordova-plugin-inappbrowser
 $ npm install @awesome-cordova-plugins/in-app-browser
+$ ionic cap sync
+
+======================================================
+Execute the app in android
+$ ionic capacitor build android
+
+-----------------------------------
+
+Social Sharing
+https://ionicframework.com/docs/native/social-sharing
+$ npm install cordova-plugin-x-socialsharing
+$ npm install @awesome-cordova-plugins/social-sharing
 $ ionic cap sync
